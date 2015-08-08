@@ -19,27 +19,33 @@ abstract class RulesComponentFormBase extends EntityForm {
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
-    $form['label'] = [
+    $form['settings'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->t('Settings'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['settings']['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
       '#default_value' => $this->entity->label(),
       '#required' => TRUE,
     ];
 
-    $form['id'] = [
+    $form['settings']['id'] = [
       '#type' => 'machine_name',
       '#description' => t('A unique machine-readable name. Can only contain lowercase letters, numbers, and underscores.'),
       '#disabled' => !$this->entity->isNew(),
       '#default_value' => $this->entity->id(),
       '#machine_name' => [
         'exists' => [$this, 'exists'],
-        'replace_pattern' =>'([^a-z0-9_]+)|(^custom$)',
+        'replace_pattern' => '([^a-z0-9_]+)|(^custom$)',
         'error' => $this->t('The machine-readable name must be unique, and can only contain lowercase letters, numbers, and underscores. Additionally, it can not be the reserved word "custom".'),
       ],
     ];
 
     // @todo enter a real tag field here.
-    $form['tag'] = [
+    $form['settings']['tag'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tag'),
       '#default_value' => $this->entity->getTag(),
@@ -47,7 +53,7 @@ abstract class RulesComponentFormBase extends EntityForm {
       '#required' => TRUE,
     ];
 
-    $form['description'] = [
+    $form['settings']['description'] = [
       '#type' => 'textarea',
       '#default_value' => $this->entity->getDescription(),
       '#description' => t('Enter a description for this component.'),
