@@ -39,6 +39,9 @@ class ReactionRuleEditForm extends RulesComponentFormBase {
       '#type' => 'fieldset',
       '#title' => $this->t('Actions'),
     );
+    $form['#attached']['library'] = array(
+      'rules_ui/rules_ui',
+    );
     return parent::form($form, $form_state);
   }
 
