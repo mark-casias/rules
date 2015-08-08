@@ -1,0 +1,9 @@
+rules_ui:
+  version: 1.x
+  css:
+    theme:
+      css/rules.ui.css: {}
+  js:
+    js/rules.autocomplete.js: {}
+  dependencies:
+    - core/jquery
