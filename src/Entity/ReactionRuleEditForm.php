@@ -26,6 +26,25 @@ class ReactionRuleEditForm extends RulesComponentFormBase {
   /**
    * {@inheritdoc}
    */
+  public function form(array $form, FormStateInterface $form_state) {
+    $form['rule_events'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->t('Events'),
+    );
+    $form['rule_conditions'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->t('Conditions'),
+    );
+    $form['rule_actions'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->t('Actions'),
+    );
+    return parent::form($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     parent::save($form, $form_state);
     drupal_set_message($this->t('Reaction rule %label has been updated.', ['%label' => $this->entity->label()]));
