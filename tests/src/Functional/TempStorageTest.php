@@ -39,12 +39,6 @@ class TempStorageTest extends RulesBrowserTestBase {
     $this->drupalGet('admin/config/workflow/rules');
     $this->clickLink('Add reaction rule');
 
-    // Cancel Button.
-    $this->drupalGet('admin/config/workflow/rules/reactions/edit/test_rule');
-    $this->assertSession()->pageTextContains('This rule is being edited by user ' . $account_1->getUsername() . ', and is therefore locked from editing by others.');
-    $this->pressButton('Cancel');
-    $this->assertSession()->pageTenxtContains('Canceled.');
-
     $this->fillField('Label', 'Test rule');
     $this->fillField('Machine-readable name', 'test_rule');
     $this->fillField('React on event', 'rules_entity_insert:node');
@@ -58,6 +52,11 @@ class TempStorageTest extends RulesBrowserTestBase {
     $this->pressButton('Save');
 
     $this->assertSession()->pageTextContains('You have unsaved changes.');
+
+    // Edit and cancel.
+    $this->drupalGet('admin/config/workflow/rules/reactions/edit/test_rule');
+    $this->pressButton('Cancel');
+    $this->assertSession()->pageTextContains('Canceled.');
 
     // Now check with the second user that the rule is being edited and locked.
     $account_2 = $this->drupalCreateUser(['administer rules']);
