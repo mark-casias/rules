@@ -93,16 +93,4 @@ class UiPageTest extends RulesBrowserTestBase {
     $this->assertSession()->pageTextContains('Reaction rule Test rule has been updated. ');
   }
 
-  /**
-   * Tests the action of the Cancel button.
-   */
-  public function testCancelButtonRule() {
-
-    // Cancel Button.
-    $this->drupalGet('admin/config/workflow/rules/reactions/edit/test_rule');
-    $this->assertSession()->pageTextContains('This rule is being edited by user ' . $account_1->getUsername() . ', and is therefore locked from editing by others.');
-    $this->pressButton('Cancel');
-    $this->assertSession()->pageTenxtContains('Your request has been canceled.');
-  }
-
 }
