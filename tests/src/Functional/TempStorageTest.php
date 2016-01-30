@@ -39,6 +39,12 @@ class TempStorageTest extends RulesBrowserTestBase {
     $this->drupalGet('admin/config/workflow/rules');
     $this->clickLink('Add reaction rule');
 
+    // Cancel Button.
+    $this->drupalGet('admin/config/workflow/rules/reactions/edit/test_rule');
+    $this->assertSession()->pageTextContains('This rule is being edited by user ' . $account_1->getUsername() . ', and is therefore locked from editing by others.');
+    $this->pressButton('Cancel');
+    $this->assertSession()->pageTenxtContains('Canceled.');
+
     $this->fillField('Label', 'Test rule');
     $this->fillField('Machine-readable name', 'test_rule');
     $this->fillField('React on event', 'rules_entity_insert:node');
